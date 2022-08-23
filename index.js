@@ -8,6 +8,16 @@ const app = express();
 //~ Import Module
 import { router } from './app/routes/index.js';
 
+//~Security
+import helmet from 'helmet';
+app.use(helmet());
+
+//~ Body parser
+import multer from 'multer';
+const bodyParser = multer();
+app.use(bodyParser.none());
+//none for waiting no files but only classical forms
+
 //~statics
 app.use('/', express.static('./public'));
 

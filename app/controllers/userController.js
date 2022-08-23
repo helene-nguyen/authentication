@@ -3,10 +3,13 @@ import debug from 'debug';
 const logger = debug('');
 //~ Import modules
 import { User } from '../datamappers/index.js';
+import { ObjectId } from 'mongodb';
 
 async function fetchAllUsers(req,res) {
     try {
-        res.json({ message: 'ALL USERS' });
+        const users = await User.findAll();
+
+        res.json(users);
     } catch (err) {
         logger(err.message);
     }
@@ -22,13 +25,42 @@ async function renderSignUpPage(req,res) {
 
 async function doSignUp(req,res) {
     try {
-        console.log(req.body);
-    
+        let body = req.body;
+      
+        // await User.create(body);
+
         res.redirect('/signin');
     } catch (err) {
         logger(err.message);
     }
 };
 
-export { fetchAllUsers, renderSignUpPage, doSignUp };
+async function renderSignInPage(req,res) {
+    try {
+        res.render('signin', {title: 'Connexion'});
+    } catch (err) {
+        logger(err.message);
+    }
+};
+
+async function doSignIn(req,res) {
+    try {
+        console.log(req.body.email);
+    
+        res.redirect('/dashboard');
+    } catch (err) {
+        logger(err.message);
+    }
+};
+
+async function renderDashboard(req,res) {
+    try {
+    
+        res.render('dashboard', {title: 'Dashboard'});
+    } catch (err) {
+        logger(err.message);
+    }
+};
+
+export { fetchAllUsers, renderSignUpPage, renderSignInPage,doSignUp, doSignIn, renderDashboard};
 
