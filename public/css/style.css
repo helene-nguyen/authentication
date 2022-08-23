@@ -40,6 +40,7 @@ a {
   flex-direction: column;
   align-items: center;
   max-width: 25rem;
+  margin: 0 1rem;
 }
 .authentication label {
   margin: 0.25rem auto;
