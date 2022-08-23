@@ -1,0 +1,10 @@
+@use './vars.scss';
+
+body {
+    background-color: vars.$body-color;
+    color: vars.$font-color;
+}
+
+.title {
+    font-size: 3rem;
+}
