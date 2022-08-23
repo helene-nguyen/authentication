@@ -6,5 +6,5 @@ class UserDataMapper extends CoreDataMapper {
   collectionName = 'user';
 }
 
-const User = new ArticleDataMapper(client);
+const User = new UserDataMapper(client);
 export { User };

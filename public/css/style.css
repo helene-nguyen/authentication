@@ -17,6 +17,7 @@ a {
 
 .title {
   font-size: 3rem;
+  text-align: center;
 }
 
 .home__button {
@@ -31,19 +32,33 @@ a {
 .home__button:hover {
   color: #1f1f30;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .authentication__form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20rem;
+  max-width: 25rem;
 }
 .authentication label {
   margin: 0.25rem auto;
 }
 .authentication input {
   margin-bottom: 0.75rem;
+  width: 97%;
+  border-radius: 15px;
+  padding: 0.5rem;
+  transition: 0.35s ease;
+}
+.authentication input:focus {
+  width: 100%;
+  border: 3px solid #1af3cf;
+  outline: none;
+}
+.authentication .password__instructions {
+  font-size: 0.75rem;
+  margin-top: 0;
 }
 .authentication__button {
   color: #fff;
@@ -57,4 +72,5 @@ a {
 .authentication__button:hover {
   color: #1f1f30;
   background-color: #fff;
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

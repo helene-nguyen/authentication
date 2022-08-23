@@ -2,7 +2,7 @@
 import debug from 'debug'; 
 const logger = debug('');
 //~ Import modules
-
+import { User } from '../datamappers/index.js';
 
 async function fetchAllUsers(req,res) {
     try {
@@ -22,8 +22,9 @@ async function renderSignUpPage(req,res) {
 
 async function doSignUp(req,res) {
     try {
-        
-        res.json({ message: 'ALL USERS' });
+        console.log(req.body);
+    
+        res.redirect('/signin');
     } catch (err) {
         logger(err.message);
     }

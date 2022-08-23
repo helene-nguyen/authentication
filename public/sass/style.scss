@@ -16,6 +16,7 @@ a {
 
 .title {
   font-size: 3rem;
+  text-align: center;
 }
 
 .home {
@@ -27,7 +28,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20rem;
+    max-width: 25rem;
   }
 
   & label {
@@ -36,6 +37,23 @@ a {
 
   & input {
     margin-bottom: 0.75rem;
+    width: 97%;
+    border-radius: 15px;
+    padding: 0.5rem;
+    transition: 0.35s ease;
+    
+    &:focus {
+        width: 100%;
+        border: 3px solid #1af3cf;
+        outline: none;  
+    }
+  }
+
+  & .password {
+    &__instructions {
+        font-size: 0.75rem;
+        margin-top: 0;
+    }
   }
 
   @include mixins.button;

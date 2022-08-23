@@ -1,34 +1,30 @@
 class CoreDataMapper {
-    dbName = 'authme';
-    collectionName;
+  dbName = 'authme';
+  collectionName;
 
-    constructor(client) {
-        this.client = client;
-    }
+  constructor(client) {
+    this.client = client;
+  }
 
-    async findAll() {
-        await client.connect();
-        const db = client.db(this.dbName);
-        const collection = db.collection(this.collectionName);
+  async findAll() {
+    const db = this.client.db(this.dbName);
+    const collection = db.collection(this.collectionName);
 
-        const result = await collection.find().toArray();
-        this.client.close();
+    const result = await collection.find().toArray();
 
-        return result;
-    }
+    return result;
+  }
 
-    async create(inputData) {
-        await client.connect();
-        const db = client.db(this.dbName);
-        const collection = db.collection(this.collectionName);
+  async create(inputData) {
+    const db = this.client.db(this.dbName);
+    const collection = db.collection(this.collectionName);
 
-        const result = await collection.insertOne(inputData);
-   
-        if (!result.acknowledged) return null;
-        client.close();
+    const result = await collection.insertOne(inputData);
 
-        return result.acknowledged;
-    }
+    if (!result.acknowledged) return null;
+
+    return result.acknowledged;
+  }
 }
 
-export {CoreDataMapper};
+export { CoreDataMapper };
