@@ -1,4 +1,4 @@
-//~ Import Router 
+//~ Import Router
 import { Router } from 'express';
 const router = Router();
 
@@ -11,7 +11,7 @@ import { router as userRouter } from './user.js';
 router.use(userRouter);
 
 //~ Articles
-import { router as articlesRouter } from './article.js'; 
+import { router as articlesRouter } from './article.js';
 router.use(articlesRouter);
 
 //~ Export router

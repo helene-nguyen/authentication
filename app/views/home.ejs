@@ -1,15 +1,21 @@
-<%- include('./partials/head.ejs')  %> 
+<%- include('./partials/head.ejs') %>
 
 
-<body>
-    <h1 class="title">Authenticate me</h1>
+    <body>
+        <h1 class="title">Authenticate me</h1>
 
-    <form action="" method="post">
-        <label for="name">Username</label>
-        <input type="text" name="name" placeholder="name" id="name">
+        <section class="authentication">
 
-        <label for="password">Password</label>
-        <input type="password" name="name" placeholder="name" id="name">
-    </form>
-</body>
-</html>
+            <form action="" method="post" class="authentication__form">
+                <label for="name">Username</label>
+                <input type="text" name="name" placeholder="name" id="name">
+
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="password" id="password">
+            </form>
+
+        </section>
+
+    </body>
+
+    </html>

@@ -7,6 +7,5 @@ import {fetchAllArticles} from '../controllers/articleController.js';
 
 router.get('/articles', fetchAllArticles);
 
-
 //~ Export router
 export { router };
