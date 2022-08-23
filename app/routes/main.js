@@ -7,6 +7,5 @@ import {renderHomePage} from '../controllers/mainController.js';
 
 router.get('/', renderHomePage);
 
-
 //~ Export router
 export { router };

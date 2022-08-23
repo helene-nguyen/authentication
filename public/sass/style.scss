@@ -1,21 +1,42 @@
 @use './vars.scss';
+@use './mixins.scss';
 
 body {
-    background-color: vars.$body-color;
-    color: vars.$font-color;
-    font-family: 'Poppins';
+  background-color: vars.$body-color;
+  color: vars.$font-color;
+  font-family: 'Poppins';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 .title {
-    font-size: 3rem;
+  font-size: 3rem;
+}
+
+.home {
+  @include mixins.button;
 }
 
 .authentication {
-    &__form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 20rem;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20rem;
+  }
 
-    }
+  & label {
+    margin: 0.25rem auto;
+  }
+
+  & input {
+    margin-bottom: 0.75rem;
+  }
+
+  @include mixins.button;
 }
