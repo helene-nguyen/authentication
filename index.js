@@ -7,6 +7,7 @@ const app = express();
 
 //~ Import Module
 import { router } from './app/routes/index.js';
+import { ErrorApi } from './app/services/errorHandler.js';
 
 //~Security
 import helmet from 'helmet';
@@ -24,7 +25,7 @@ app.use('/', express.static('./public'));
 //~ Encoding
 //accept Content-type: application/json
 app.use(express.json());
-// accept Content-type: application/x-www-form-urlencoded
+//accept Content-type: application/x-www-form-urlencoded
 app.use(express.urlencoded({
 extended: false
 }));
@@ -60,6 +61,9 @@ app.set('views', './app/views');
 app.use(router);
 
 //~ Error 404
+app.use((req, res) => {
+    throw new ErrorApi('Page Not Found !', req, res, 404);
+});
 
 //~ Launch Server 
 const PORT = process.env.PORT ??  3000; 
