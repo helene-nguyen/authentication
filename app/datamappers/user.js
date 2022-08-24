@@ -1,5 +1,5 @@
 //~import module
-import { client } from '../db/database.js';
+import  client  from '../db/database.js';
 import { CoreDataMapper } from './coreDataMapper.js';
 
 class UserDataMapper extends CoreDataMapper {

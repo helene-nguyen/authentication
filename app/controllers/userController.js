@@ -15,6 +15,18 @@ async function fetchAllUsers(req,res) {
     }
 };
 
+async function fetchOneUser(req,res) {
+    try {
+        const userId = req.params.userId;
+
+        const user = await User.findOne(userId);
+
+        res.json(user);
+    } catch (err) {
+        logger(err.message);
+    }
+};
+
 async function renderSignUpPage(req,res) {
     try {
         res.render('signup', {title: 'Create an account'});
@@ -62,5 +74,5 @@ async function renderDashboard(req,res) {
     }
 };
 
-export { fetchAllUsers, renderSignUpPage, renderSignInPage,doSignUp, doSignIn, renderDashboard};
+export { fetchAllUsers, fetchOneUser, renderSignUpPage, renderSignInPage,doSignUp, doSignIn, renderDashboard};
 
