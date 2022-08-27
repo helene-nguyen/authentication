@@ -88,7 +88,28 @@ async function renderSignInPage(req, res) {
 
 async function doSignIn(req, res) {
   try {
-    console.log(req.body.email);
+    
+    let { email, password } = req.body;
+
+    //~ User already exist ?
+    const userExist = await User.findUserIdentity({ email });
+
+    if (!userExist || userExist.isactive === false) throw new ErrorApi(`L'utilisateur non reconnu !`, req, res, 401);
+
+    //~ Security
+    const validPwd = await bcrypt.compare(password, userExist.password);
+
+    if (!validPwd) throw new ErrorApi(`L'email ou le mot de passe n'est pas valide`, req, res, 401);
+
+    const { ['password']: remove, ...user } = userExist;
+
+    //~ Authorization JWT
+    let accessToken = generateAccessToken({ user });
+    let refreshToken = generateRefreshToken({ user }, req);
+
+    delete user['isActive'];
+
+    let userIdentity = { ...user, accessToken, refreshToken };
 
     res.redirect('/dashboard');
   } catch (err) {
