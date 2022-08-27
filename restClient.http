@@ -8,15 +8,6 @@
 GET {{entryPoint}}
 Content-Type: application/json
 
-
-###
-POST {{entryPoint}}
-Content-Type: application/json
-
-{
-   "test": "test" 
-}
-
 ###* USERS
 
 ###
@@ -26,3 +17,11 @@ Content-Type: application/json
 ###
 GET {{entryPoint}}/users/6304c6605a829bc3f52e122f
 Content-Type: application/json
+
+###
+POST {{entryPoint}}/signup
+Content-Type: application/json
+
+{
+   "username": "$#"
+}

@@ -8,6 +8,16 @@
     <label for="password">Password</label>
     <input type="password" name="password" placeholder="password" id="password" />
 
+    <div>
+      <p>You are :</p>
+      <div class="authentication__role">
+        <label for="admin">Admin</label>
+        <input type="radio" name="role" id="admin" class="authentication__role--radio" value="admin"/>
+        <label for="user">User</label>
+        <input type="radio" name="role" id="user" class="authentication__role--radio" value="user" checked />
+      </div>
+    </div>
+
     <button type="submit" class="authentication__button">Submit</button>
   </form>
 </section>

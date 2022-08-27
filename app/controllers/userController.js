@@ -4,12 +4,20 @@ const logger = debug('');
 //~ Import modules
 import { User } from '../datamappers/index.js';
 import { ObjectId } from 'mongodb';
+import { ErrorApi } from '../services/errorHandler.js';
+//~ Security
+import bcrypt from 'bcrypt';
+//~ Authorization
+import { generateAccessToken, generateRefreshToken } from '../services/jsonWebToken.js';
 
+//~CONTROLLERS
 async function fetchAllUsers(req, res) {
   try {
     const users = await User.findAll();
 
-    res.json(users);
+    if (!users) throw new ErrorApi(`No users found`, '/', '', req, res, 400);
+
+    return res.status(200).json(users);
   } catch (err) {
     logger(err.message);
   }
@@ -19,9 +27,13 @@ async function fetchOneUser(req, res) {
   try {
     const userId = req.params.userId;
 
+    if (typeof userId !== 'string') throw new ErrorApi(`Id must be a string`, '/', '', req, res, 400);
+
     const user = await User.findOne(userId);
 
-    res.json(user);
+    if (!user) throw new ErrorApi(`Aucun utilisateur trouvé`, req, res, 400);
+
+    res.status(200).json(user);
   } catch (err) {
     logger(err.message);
   }
@@ -29,7 +41,9 @@ async function fetchOneUser(req, res) {
 
 async function renderSignUpPage(req, res) {
   try {
-    res.render('signup', { title: 'Create an account' });
+    let message = req.session.errorMSG;
+    message ? (req.session.errorMSG = '') : message;
+    res.render('signup', { title: 'Create an account', message });
   } catch (err) {
     logger(err.message);
   }
@@ -37,9 +51,26 @@ async function renderSignUpPage(req, res) {
 
 async function doSignUp(req, res) {
   try {
-    let body = req.body;
+    let { email, password, passwordConfirm } = req.body;
 
-    // await User.create(body);
+    const userExist = await User.findUser({ email });
+    if (userExist) {
+      req.session.errorMSG = 'User already exist !';
+      res.redirect('/signup');
+    }
+
+    //~ Encrypt password if password exist
+    if (password !== passwordConfirm) (req.session.errorMSG = 'Please enter the same password !'), res.redirect('/signup');
+    const salt = await bcrypt.genSalt(10);
+    password = await bcrypt.hash(password, salt);
+    //replace password in body
+    req.body.password = password;
+
+    //~ Add role + remove passwordconfirm
+    req.body = { ...req.body, role: 'user' };
+    const { ['passwordConfirm']: remove, ...user } = req.body;
+
+    await User.create(user);
 
     res.redirect('/signin');
   } catch (err) {

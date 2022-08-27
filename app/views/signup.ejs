@@ -1,25 +1,27 @@
 <%- include('./partials/head.ejs') %>
 
 <section class="authentication">
-
   <form action="" method="post" class="authentication__form">
 
+    <% if (message) { %>
+    <p class="authentication__error-message"><%= message %></p>
+    <% } %>
+
     <label for="username">Username</label>
-    <input type="text" name="username" placeholder="username" id="username" />
+    <input type="text" name="username" placeholder="username" id="username" required />
 
     <label for="email">E-mail</label>
-    <input type="text" email="email" placeholder="email" id="email" />
+    <input type="email" name="email" placeholder="email" id="email" required />
 
     <label for="password">Password</label>
-    <input type="password" name="password" placeholder="password" id="password" />
-    <p class="password__instructions">min 8 charac., at least 1 upper., 1 lower, 1 special char. </p>
+    <input type="password" name="password" placeholder="password" id="password" required />
+    <p class="password__instructions">min 8 charac., at least 1 upper., 1 lower, 1 special char.</p>
 
     <label for="passwordConfirm">Confirm your password</label>
-    <input type="password" name="passwordConfirm" placeholder="please confirm password" id="password-confirm" />
+    <input type="password" name="passwordConfirm" placeholder="please confirm password" id="password-confirm" required />
 
     <button type="submit" class="authentication__button">Submit</button>
   </form>
-
 </section>
 
 <%- include('./partials/foot.ejs') %>

@@ -1,5 +1,6 @@
-import { ObjectId } from "mongodb";
-
+//~import modules
+import pkg from 'mongodb';
+const { ObjectId, Schema } = pkg;
 class CoreDataMapper {
   dbName = 'authme';
   collectionName;
@@ -17,16 +18,18 @@ class CoreDataMapper {
     return result;
   }
 
-  async findOne(userId) {
+  async findOne(id) {
     const db = this.client.db(this.dbName);
+
     const collection = db.collection(this.collectionName);
 
-    const result = await collection.find(ObjectId(userId)).toArray();
+    const result = await collection.find(ObjectId(id)).toArray();
 
-    return result;
+    return result[0];
   }
 
   async create(inputData) {
+
     const db = this.client.db(this.dbName);
     const collection = db.collection(this.collectionName);
 
@@ -37,11 +40,11 @@ class CoreDataMapper {
     return result.acknowledged;
   }
 
-  async update(userId,inputData) {
+  async update(userId, inputData) {
     const db = this.client.db(this.dbName);
     const collection = db.collection(this.collectionName);
 
-    const result = await collection.updateOne(ObjectId(userId),{$set: inputData});
+    const result = await collection.updateOne(ObjectId(userId), { $set: inputData });
 
     if (!result.acknowledged) return null;
 
